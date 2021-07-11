@@ -4,15 +4,22 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework.decorators import action
+from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet, GenericViewSet
 
 from api.models import Player, MatchResult
-from api.serializers import PlayerStatsSerializer
+from api.serializers import PlayerStatsSerializer, PlayerSerializer
 
 
-class PlayerEndpoint(GenericViewSet):
+class PlayerEndpoint(ListModelMixin, GenericViewSet):
     queryset = Player.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'stats':
+            return PlayerStatsSerializer
+        else:
+            return PlayerSerializer
 
     @action(methods=['GET'], detail=True)
     def stats(self, request, *args, **kwargs):
@@ -51,4 +58,4 @@ class PlayerEndpoint(GenericViewSet):
             'scores_sum': scores_sum,
             'scores_median': scores_median,
         }
-        return Response(status=200, data=PlayerStatsSerializer(response_json).data)
+        return Response(status=200, data=self.get_serializer_class()(response_json).data)

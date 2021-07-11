@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from api.models import Player
+
 
 class PlayerStatsSerializer(serializers.Serializer):
     games_played = serializers.IntegerField()
@@ -15,3 +17,9 @@ class PlayerStatsSerializer(serializers.Serializer):
     top_role_played = serializers.JSONField()
     scores_sum = serializers.IntegerField()
     scores_median = serializers.IntegerField()
+
+
+class PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ('__all__')
