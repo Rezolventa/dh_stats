@@ -30,6 +30,7 @@ class GameSession(models.Model):
     expidition_succeed = models.BooleanField()
     date = models.DateField(default=now())
     created = models.DateField(auto_created=True, default=now())
+    classic_rules = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'game_sessions'
