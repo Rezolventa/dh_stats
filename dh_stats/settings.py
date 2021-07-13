@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -80,14 +82,9 @@ WSGI_APPLICATION = 'dh_stats.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dh_stats',
-        'USER' : 'postgres',
-        'PASSWORD' : '31337',
-        'HOST' : '127.0.0.1',
-        'PORT' : '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgres://hxgbfavyrpbqgc:ee82e9818eb0f47c8e45725b9ac89819bcdbe7ef7259431416283737a0397691@ec2-35-168-145-180.compute-1.amazonaws.com:5432/da7krq2oc4nufb')
+    )
 }
 
 
@@ -139,3 +136,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
