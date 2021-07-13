@@ -1,0 +1,38 @@
+info:
+  description: ''
+  title: ''
+  version: ''
+openapi: 3.0.0
+paths:
+  /api/players/:
+    get:
+      operationId: players_list
+      parameters:
+      - in: query
+        name: page
+        schema:
+          description: A page number within the paginated result set.
+          title: Page
+          type: integer
+      tags:
+      - players
+  /api/players/{id}/stats/:
+    get:
+      operationId: players_stats
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          description: A unique integer value identifying this player.
+          title: ID
+          type: integer
+      tags:
+      - players
+  /api/swagger:
+    get:
+      operationId: swagger_list
+      tags:
+      - swagger
+servers:
+- url: ''
