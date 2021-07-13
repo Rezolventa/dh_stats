@@ -5,7 +5,7 @@ from api.models import Map, Player, GameSession, Role, MatchResult
 
 class MatchResultInline(admin.TabularInline):
     model = MatchResult
-    extra = 3
+    extra = 4
     max_num = 8
     ordering = ['id']
 

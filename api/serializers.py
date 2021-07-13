@@ -14,9 +14,12 @@ class PlayerStatsSerializer(serializers.Serializer):
     games_as_civil = serializers.IntegerField()
     wins_as_civil = serializers.IntegerField()
     winrate_as_civil = serializers.FloatField(allow_null=True)
-    top_role_played = serializers.JSONField()
-    scores_sum = serializers.IntegerField()
-    scores_median = serializers.IntegerField()
+    favourite_role = serializers.JSONField()
+    score_sum = serializers.IntegerField()
+    max_score = serializers.IntegerField()
+    max_score_as_thrall = serializers.IntegerField()
+    max_score_as_civil = serializers.IntegerField()
+    score_avg = serializers.IntegerField()
 
 
 class PlayerSerializer(serializers.ModelSerializer):
