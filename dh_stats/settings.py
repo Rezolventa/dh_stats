@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'desolate-eyrie-31359.herokuapp.com',
     '127.0.0.1',
+    '0.0.0.0',
 ]
 
 
