@@ -28,7 +28,8 @@ SECRET_KEY = 'django-insecure-zvxq3d116n_+%c+a2!4&88_#_n+b$!wmj_m=gt1s0768i%x0cc
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'desolate-eyrie-31359.herokuapp.com'
+    'desolate-eyrie-31359.herokuapp.com',
+    '127.0.0.1',
 ]
 
 
