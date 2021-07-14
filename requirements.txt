@@ -3,3 +3,4 @@ djangorestframework~=3.12.4
 django-rest-swagger
 psycopg2
 dj-database-url
+django-cors-headers
