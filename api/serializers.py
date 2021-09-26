@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import Player
+from api.models import Player, MatchResult, GameSession
 
 
 class PlayerStatsSerializer(serializers.Serializer):
@@ -25,4 +25,18 @@ class PlayerStatsSerializer(serializers.Serializer):
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
+        fields = ('__all__')
+
+
+class GameSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GameSession
+        fields = ('__all__')
+
+
+class MatchResultSerializer(serializers.ModelSerializer):
+    game_session = GameSessionSerializer()
+
+    class Meta:
+        model = MatchResult
         fields = ('__all__')

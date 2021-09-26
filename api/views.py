@@ -1,8 +1,6 @@
 from django.db.models import IntegerField, Max, Sum, Count, Avg
 from django.db.models.functions import Cast
-from django.shortcuts import render
 
-# Create your views here.
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
 from rest_framework.permissions import AllowAny
@@ -13,7 +11,8 @@ from rest_framework.viewsets import ViewSet, GenericViewSet
 from rest_framework_swagger import renderers
 
 from api.models import Player, MatchResult
-from api.serializers import PlayerStatsSerializer, PlayerSerializer
+from api.pagination import PageSizeAndNumberPagination
+from api.serializers import PlayerStatsSerializer, PlayerSerializer, MatchResultSerializer
 
 
 class PlayerEndpoint(ListModelMixin, GenericViewSet):
@@ -27,7 +26,6 @@ class PlayerEndpoint(ListModelMixin, GenericViewSet):
 
     @action(methods=['GET'], detail=True)
     def stats(self, request, *args, **kwargs):
-        # TODO: move from view to model or service/report
         player = self.get_object()
         games_played = MatchResult.objects.filter(player=player).count()
         games_as_thrall = MatchResult.objects.filter(player=player, is_thrall=True).count()
@@ -81,6 +79,12 @@ class PlayerEndpoint(ListModelMixin, GenericViewSet):
             'score_avg': score_avg,
         }
         return Response(status=200, data=self.get_serializer_class()(response_json).data)
+
+
+class MatchResultsEndpoint(ListModelMixin, GenericViewSet):
+    queryset = MatchResult.objects.all()
+    serializer_class = MatchResultSerializer
+    pagination_class = PageSizeAndNumberPagination
 
 
 class SwaggerSchemaView(APIView):
