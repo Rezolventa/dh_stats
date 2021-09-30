@@ -84,6 +84,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dh_stats.wsgi.application'
 
 
+# Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'django_cache',
+    }
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 

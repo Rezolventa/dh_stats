@@ -15,6 +15,7 @@ from api.models import Player, MatchResult
 from api.pagination import PageSizeAndNumberPagination
 from api.permissions import ReadOnly, SuperUserOnly
 from api.serializers import PlayerStatsSerializer, PlayerSerializer, MatchResultSerializer
+from api.utils import BecauseWhyNotThrottle
 
 
 class PlayerEndpoint(ListModelMixin, GenericViewSet):
@@ -89,7 +90,11 @@ class MatchResultsViewSet(ModelViewSet):
     queryset = MatchResult.objects.all()
     serializer_class = MatchResultSerializer
     pagination_class = PageSizeAndNumberPagination
+
+
+class NastyViewSet(MatchResultsViewSet):
     renderer_classes = [XMLRenderer]
+    throttle_classes = [BecauseWhyNotThrottle]
 
 
 class SwaggerSchemaView(APIView):
