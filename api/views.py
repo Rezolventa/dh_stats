@@ -9,6 +9,7 @@ from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework_swagger import renderers
+from rest_framework_xml.renderers import XMLRenderer
 
 from api.models import Player, MatchResult
 from api.pagination import PageSizeAndNumberPagination
@@ -88,6 +89,7 @@ class MatchResultsViewSet(ModelViewSet):
     queryset = MatchResult.objects.all()
     serializer_class = MatchResultSerializer
     pagination_class = PageSizeAndNumberPagination
+    renderer_classes = [XMLRenderer]
 
 
 class SwaggerSchemaView(APIView):

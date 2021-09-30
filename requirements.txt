@@ -4,3 +4,4 @@ django-rest-swagger
 psycopg2
 dj-database-url
 django-cors-headers
+djangorestframework-xml
