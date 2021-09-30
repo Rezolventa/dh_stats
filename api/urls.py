@@ -1,13 +1,13 @@
 from django.conf.urls import url
 from rest_framework.routers import SimpleRouter
 
-from api.views import PlayerEndpoint, SwaggerSchemaView, MatchResultsEndpoint
+from api.views import PlayerEndpoint, SwaggerSchemaView, MatchResultsViewSet
 
 router = SimpleRouter()
 
 
-router.register(r'players', PlayerEndpoint)
-router.register(r'results', MatchResultsEndpoint)
+router.register(r'players', PlayerEndpoint, 'players')
+router.register(r'results', MatchResultsViewSet, 'results')
 urlpatterns = router.urls
 
 urlpatterns += [

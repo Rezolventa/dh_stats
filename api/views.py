@@ -7,15 +7,17 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
-from rest_framework.viewsets import ViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework_swagger import renderers
 
 from api.models import Player, MatchResult
 from api.pagination import PageSizeAndNumberPagination
+from api.permissions import ReadOnly, SuperUserOnly
 from api.serializers import PlayerStatsSerializer, PlayerSerializer, MatchResultSerializer
 
 
 class PlayerEndpoint(ListModelMixin, GenericViewSet):
+    permission_classes = [ReadOnly | SuperUserOnly]
     queryset = Player.objects.all()
 
     def get_serializer_class(self):
@@ -81,7 +83,8 @@ class PlayerEndpoint(ListModelMixin, GenericViewSet):
         return Response(status=200, data=self.get_serializer_class()(response_json).data)
 
 
-class MatchResultsEndpoint(ListModelMixin, GenericViewSet):
+class MatchResultsViewSet(ModelViewSet):
+    permission_classes = [SuperUserOnly]
     queryset = MatchResult.objects.all()
     serializer_class = MatchResultSerializer
     pagination_class = PageSizeAndNumberPagination
