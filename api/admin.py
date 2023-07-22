@@ -9,6 +9,7 @@ class MatchResultInline(admin.TabularInline):
     max_num = 8
     ordering = ['id']
 
+
 @admin.register(GameSession)
 class GameSessionAdmin(admin.ModelAdmin):
     model = GameSession
@@ -21,6 +22,7 @@ class GameSessionAdmin(admin.ModelAdmin):
     def game_session_repr(self, obj):
         return self.model.__str__(obj)
     game_session_repr.short_description = 'Game Session'
+
 
 admin.site.register(Map)
 admin.site.register(Player)
